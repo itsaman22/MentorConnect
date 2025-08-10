@@ -48,7 +48,7 @@ const HomePage = () => {
         </nav>
         <div className="auth-buttons">
           <Link to="/login" className="bg-gray-900 text-white px-5 py-2 rounded-full font-semibold hover:bg-gray-700 transition-colors gap-3" >Log in</Link>
-          <Link to="/register" className=" text-black px-5 py-2 rounded-full font-semibold hover:bg-gray-700 transition-colors border-2" >Register</Link>
+          {/* <Link to="/register" className=" text-black px-5 py-2 rounded-full font-semibold hover:bg-gray-700 transition-colors border-2" >Register</Link> */}
         </div>
       </header>
 
