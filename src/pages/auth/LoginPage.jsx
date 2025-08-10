@@ -51,18 +51,35 @@ const LoginPage = () => {
     
     setIsLoading(true);
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      const response = await fetch('http://localhost:5000/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
+
+      const data = await response.json();
       
-      // Mock successful login - in real app, this would be actual API call
-      console.log('Login attempt:', formData);
+      if (!response.ok) {
+        throw new Error(data.message || 'Login failed');
+      }
+
+      // Store token in localStorage
+      localStorage.setItem('token', data.token);
       
-      // Navigate to appropriate dashboard - you'll handle this in your actual app
-      alert('Login successful! You would be redirected to dashboard.');
-      
-    // eslint-disable-next-line no-unused-vars
+      // If user is a mentee, redirect to mentee home
+      if (data.user.userType === 'mentee') {
+        navigate('/mentee/home');
+      } else {
+        navigate('/mentor/home');
+      }
+
     } catch (error) {
-      setErrors({ submit: 'Invalid email or password. Please try again.' });
+      setErrors({ submit: error.message || 'Invalid email or password. Please try again.' });
     } finally {
       setIsLoading(false);
     }
