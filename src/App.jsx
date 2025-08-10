@@ -5,7 +5,8 @@ import './pages/landing/HomePage';
 import HomePage from './pages/landing/HomePage';
 import LoginPage from './pages/auth/LoginPage';
 import RegisterPage from './pages/auth/RegisterPage';
-
+import MenteeHome from './pages/mentee/MenteeHome';
+import ProtectedRoute from './components/common/ProtectedRoute';
 
 // Import landing pages
 
@@ -18,7 +19,14 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        {/* More routes */}
+        <Route 
+          path="/mentee/home" 
+          element={
+            <ProtectedRoute>
+              <MenteeHome />
+            </ProtectedRoute>
+          } 
+        />
       </Routes>
     </BrowserRouter>
   );

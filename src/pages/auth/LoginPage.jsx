@@ -51,10 +51,11 @@ const LoginPage = () => {
     
     setIsLoading(true);
     try {
-      const response = await fetch('http://localhost:5000/api/auth/login', {
+      const response = await fetch(`http://localhost:5000/api/auth/login?_=${Date.now()}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Cache-Control': 'no-cache',
         },
         body: JSON.stringify({
           email: formData.email,
@@ -99,7 +100,7 @@ const LoginPage = () => {
 
         {/* Login Form */}
         <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
-          <div onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6">
             {/* Email Field */}
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
@@ -218,7 +219,7 @@ const LoginPage = () => {
                 'Sign In'
               )}
             </button>
-          </div>
+          </form>
 
           {/* Divider */}
           <div className="mt-6 mb-6">
