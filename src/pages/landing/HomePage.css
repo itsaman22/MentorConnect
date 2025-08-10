@@ -1,0 +1,279 @@
+/* HomePage.css - Style for the landing page */
+
+/* Global styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  
+  /* Zoom-out animation added */
+  animation: zoomIn 1s ease-out;
+  transform-origin: center;
+}
+
+@keyframes zoomIn {
+  0% {
+      transform: scale(0.8);
+      opacity: 0;
+  }
+  100% {
+      transform: scale(1);
+      opacity: 1;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+/* Header styles */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 60px;
+  background-color: #fff;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.logo i {
+  margin-right: 8px;
+}
+
+.main-nav ul {
+  display: flex;
+}
+
+.main-nav li {
+  margin: 0 15px;
+  font-weight: 500;
+}
+
+.auth-buttons .login-btn {
+  background-color: #222;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-weight: 600;
+  transition: background-color 0.3s;
+}
+
+.auth-buttons .login-btn:hover {
+  background-color: #555;
+}
+
+/* Main content */
+.main-content {
+  position: relative;
+  padding: 60px 20px;
+  min-height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Floating icons */
+.floating-icons {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.icon-circle {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  font-size: 24px;
+}
+
+.icon-left {
+  left: 15%;
+  top: 40%;
+  background-color: rgba(230, 230, 255, 0.7);
+  color: #6464e2;
+}
+
+.icon-top {
+  left: 50%;
+  top: 15%;
+  transform: translateX(-50%);
+  background-color: rgba(255, 220, 255, 0.7);
+  color: #e264c4;
+}
+
+.icon-right {
+  right: 15%;
+  top: 40%;
+  background-color: rgba(220, 255, 255, 0.7);
+  color: #64c4e2;
+}
+
+.icon-bottom-left {
+  left: 20%;
+  bottom: 20%;
+  background-color: rgba(220, 255, 220, 0.7);
+  color: #64e291;
+}
+
+.icon-bottom-right {
+  right: 18%;
+  bottom: 20%;
+  background-color: rgba(255, 255, 220, 0.7);
+  color: #e2c464;
+}
+
+/* Hero text */
+.hero-text {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 40px;
+}
+
+.hero-text h1 {
+  font-size: 54px;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.text-primary {
+  color: #4169e1;
+}
+
+.text-dark {
+  color: #222;
+}
+
+.subtitle {
+  font-size: 20px;
+  color: #777;
+  margin-bottom: 30px;
+}
+
+/* Search bar */
+.search-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 800px;
+}
+
+.search-bar {
+  display: flex;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.search-input {
+  flex: 1;
+  padding: 15px 20px;
+  border: none;
+  font-size: 16px;
+}
+
+.search-input.skill {
+  border-right: 1px solid #eee;
+}
+
+.search-button {
+  padding: 15px 30px;
+  background-color: #222;
+  color: white;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.search-button:hover {
+  background-color: #555;
+}
+
+.advanced-search {
+  text-align: right;
+  margin-top: 10px;
+}
+
+.advanced-search a {
+  color: #4169e1;
+  font-size: 14px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .header {
+      padding: 15px 20px;
+      flex-wrap: wrap;
+  }
+  
+  .main-nav {
+      order: 3;
+      width: 100%;
+      margin-top: 15px;
+  }
+  
+  .main-nav ul {
+      justify-content: center;
+  }
+  
+  .hero-text h1 {
+      font-size: 36px;
+  }
+  
+  .subtitle {
+      font-size: 16px;
+  }
+  
+  .search-bar {
+      flex-direction: column;
+  }
+  
+  .search-input.skill {
+      border-right: none;
+      border-bottom: 1px solid #eee;
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}

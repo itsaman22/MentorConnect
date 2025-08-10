@@ -1,0 +1,18 @@
+  {/* Keep your existing decorative icons with adjusted positioning */}
+  {/* <div className="absolute inset-0 z-10">
+          <div className="absolute w-[70px] h-[70px] bg-blue-100/70 rounded-full flex items-center justify-center shadow-lg text-2xl left-[35%] top-[40%] text-blue-600">
+            <i className="fas fa-user-graduate"></i>
+          </div>
+          <div className="absolute w-[70px] h-[70px] bg-pink-100/70 rounded-full flex items-center justify-center shadow-lg text-2xl left-1/2 top-[15%] transform -translate-x-1/2 text-pink-600">
+            <i className="fas fa-chalkboard-teacher"></i>
+          </div>
+          <div className="absolute w-[70px] h-[70px] bg-cyan-100/70 rounded-full flex items-center justify-center shadow-lg text-2xl right-[4%] top-[40%] text-cyan-600">
+            <i className="fas fa-book-open"></i>
+          </div>
+          <div className="absolute w-[70px] h-[70px] bg-green-100/70 rounded-full flex items-center justify-center shadow-lg text-2xl left-[30%] bottom-[20%] text-green-600">
+            <i className="fas fa-clock"></i>
+          </div>
+          <div className="absolute w-[70px] h-[70px] bg-yellow-100/70 rounded-full flex items-center justify-center shadow-lg text-2xl right-[18%] bottom-[6%] text-yellow-600">
+            <i className="fas fa-smile"></i>
+          </div>
+        </div> */}
