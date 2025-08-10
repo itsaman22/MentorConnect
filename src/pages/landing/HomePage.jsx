@@ -121,7 +121,7 @@ const HomePage = () => {
   <div className="hidden md:block w-1/2 relative">
     <div className="absolute inset-0 bg-blue-50 rounded-l-full opacity-50"></div>
     <img 
-      src="/src/images/mentorImage.jpg"
+      src="/mentorImage.jpg"
       alt="Mentorship Illustration"
       className="relative w-full h-full object-contain"
     />
@@ -188,7 +188,7 @@ const HomePage = () => {
       <div className="relative">
         <div className="absolute inset-0  rounded-full filter blur-3xl opacity-30 transform scale-150"></div>
         <img 
-          src="/src/images/mentorStudent.jpg"
+          src="/mentorStudent.jpg"
           alt="Mentorship Illustration"
           className="relative w-full h-auto object-contain animate-float "
           // style={{
