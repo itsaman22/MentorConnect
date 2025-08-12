@@ -1,7 +1,7 @@
 // src/App.js
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import HomePage from './pages/landing/homepage';
+import HomePage from './pages/landing/HomePage';
 import LoginPage from './pages/auth/LoginPage';
 import RegisterPage from './pages/auth/RegisterPage';
 import MenteeHome from './pages/mentee/MenteeHome';
