@@ -2,8 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import * as process from 'process';
-import connectDB from './config/db.js';  // Add .js extension
-import authRoutes from './routes/auth.js';  // Add .js extension
+import connectDB from './config/db.js';
+import authRoutes from './routes/auth.js';
 
 dotenv.config();
 
@@ -12,15 +12,21 @@ const app = express();
 // Connect to MongoDB
 connectDB();
 
-// Middleware
 // Configure CORS
-app.use(cors({
+const corsOptions = {
   origin: [
     'http://localhost:5173',
-    'https://mentor-connect-mauve.vercel.app/' // Add your Vercel frontend URL
+    'https://mentor-connect-mauve.vercel.app'
   ],
-  credentials: true
-}));
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Cache-Control'],
+  exposedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
+  preflightContinue: true,
+  optionsSuccessStatus: 204
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Request logging middleware
