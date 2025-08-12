@@ -2,6 +2,14 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "framework": "vite",
+  "env": {
+    "VITE_API_URL": "https://mentor-connect-server.vercel.app"
+  },
+  "build": {
+    "env": {
+      "VITE_API_URL": "https://mentor-connect-server.vercel.app"
+    }
+  },
   "rewrites": [
     {
       "source": "/(.*)",
