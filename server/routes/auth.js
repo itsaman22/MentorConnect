@@ -80,26 +80,17 @@ router.get('/me', async (req, res) => {
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
-    console.log('Login attempt with:', { email, password });
 
     // Check if user exists
     const user = await User.findOne({ email });
-    console.log('Found user:', user ? { 
-      email: user.email, 
-      userType: user.userType,
-      storedPassword: user.password 
-    } : 'No user found');
-
     if (!user) {
-      return res.status(401).json({ message: 'User not found with this email' });
+      return res.status(401).json({ message: 'Invalid credentials' });
     }
 
     // Check password using bcrypt compare
     const passwordMatch = await user.comparePassword(password);
-    console.log('Password match:', passwordMatch);
-    
     if (!passwordMatch) {
-      return res.status(401).json({ message: 'Incorrect password' });
+      return res.status(401).json({ message: 'Invalid credentials' });
     }
 
     // Create JWT token

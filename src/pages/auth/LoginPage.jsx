@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Eye, EyeOff, Mail, Lock, AlertCircle } from 'lucide-react';
-import apiService from '../../services/api';
+import { loginUser } from '../../services/api';
 
 
 const LoginPage = () => {
@@ -52,27 +52,20 @@ const LoginPage = () => {
     
     setIsLoading(true);
     try {
-      const response = await apiService.login({
+      const { token, user } = await loginUser({
         email: formData.email,
         password: formData.password,
       });
 
-      const data = await response.json();
-      
-      if (!response.ok) {
-        throw new Error(data.message || 'Login failed');
-      }
-
       // Store token in localStorage
-      localStorage.setItem('token', data.token);
+      localStorage.setItem('token', token);
       
       // If user is a mentee, redirect to mentee home
-      if (data.user.userType === 'mentee') {
+      if (user.userType === 'mentee') {
         navigate('/mentee/home');
       } else {
         navigate('/mentor/home');
       }
-
     } catch (error) {
       setErrors({ submit: error.message || 'Invalid email or password. Please try again.' });
     } finally {
