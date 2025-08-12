@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Eye, EyeOff, Mail, Lock, AlertCircle } from 'lucide-react';
+import apiService from '../../services/api';
 
 
 const LoginPage = () => {
@@ -51,16 +52,9 @@ const LoginPage = () => {
     
     setIsLoading(true);
     try {
-      const response = await fetch(`http://localhost:5000/api/auth/login?_=${Date.now()}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Cache-Control': 'no-cache',
-        },
-        body: JSON.stringify({
-          email: formData.email,
-          password: formData.password,
-        }),
+      const response = await apiService.login({
+        email: formData.email,
+        password: formData.password,
       });
 
       const data = await response.json();

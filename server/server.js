@@ -13,7 +13,14 @@ const app = express();
 connectDB();
 
 // Middleware
-app.use(cors());
+// Configure CORS
+app.use(cors({
+  origin: [
+    'http://localhost:5173',
+    'https://your-frontend-url.vercel.app' // Add your Vercel frontend URL
+  ],
+  credentials: true
+}));
 app.use(express.json());
 
 // Request logging middleware

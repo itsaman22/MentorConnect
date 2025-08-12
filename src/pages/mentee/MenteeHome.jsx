@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import apiService from '../../services/api';
 
 const MenteeHome = () => {
   const navigate = useNavigate();
@@ -20,11 +21,7 @@ const MenteeHome = () => {
           throw new Error('No token found');
         }
 
-        const response = await fetch('http://localhost:5000/api/auth/me', {
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
+        const response = await apiService.getMe(token);
 
         if (!response.ok) {
           throw new Error('Failed to fetch user data');
