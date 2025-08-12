@@ -17,7 +17,7 @@ connectDB();
 app.use(cors({
   origin: [
     'http://localhost:5173',
-    'https://your-frontend-url.vercel.app' // Add your Vercel frontend URL
+    'https://mentor-connect-mauve.vercel.app/' // Add your Vercel frontend URL
   ],
   credentials: true
 }));
