@@ -1,4 +1,19 @@
-const API_BASE_URL = 'http://localhost:5000/api';
+// Get API base URL from environment or fallback to localhost
+const getApiBaseUrl = () => {
+  const envApiUrl = import.meta.env.VITE_API_URL;
+  if (envApiUrl && envApiUrl !== 'undefined') {
+    return `${envApiUrl}/api`;
+  }
+  return 'http://localhost:5000/api';
+};
+
+const API_BASE_URL = getApiBaseUrl();
+
+// Add debugging in development
+if (import.meta.env.DEV) {
+  console.log('API Base URL:', API_BASE_URL);
+  console.log('Environment VITE_API_URL:', import.meta.env.VITE_API_URL);
+}
 
 // Login function
 export const loginUser = async (credentials) => {
