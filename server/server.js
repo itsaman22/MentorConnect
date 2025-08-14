@@ -17,10 +17,9 @@ const corsOptions = {
   origin: [
     'http://localhost:5173',
     'https://mentor-connect-mauve.vercel.app'
-      *
   ],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'Cache-Control'],
+  allowedHeaders: ['*', 'Content-Type', 'Authorization', 'Cache-Control'],
   exposedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
   preflightContinue: true,
