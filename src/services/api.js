@@ -61,6 +61,11 @@ class ApiService {
 
   // Get user data
   async getMe(token) {
+    if (import.meta.env.DEV) {
+      console.log('getMe called with token:', token ? 'Token exists' : 'No token');
+      console.log('API URL:', `${this.baseURL}/auth/me`);
+    }
+    
     const response = await fetch(`${this.baseURL}/auth/me`, {
       method: 'GET',
       headers: {
@@ -68,6 +73,11 @@ class ApiService {
         'Content-Type': 'application/json',
       },
     });
+
+    if (import.meta.env.DEV) {
+      console.log('Response status:', response.status);
+      console.log('Response ok:', response.ok);
+    }
 
     const data = await response.json();
 

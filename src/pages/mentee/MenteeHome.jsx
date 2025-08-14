@@ -18,24 +18,21 @@ const MenteeHome = () => {
       try {
         const token = localStorage.getItem('token');
         if (!token) {
-          throw new Error('No token found');
+          navigate('/login');
+          return;
         }
 
-        const response = await apiService.getMe(token);
-
-        if (!response.ok) {
-          throw new Error('Failed to fetch user data');
-        }
-
-        const data = await response.json();
+        const data = await apiService.getMe(token);
         setUserData(data);
       } catch (error) {
         console.error('Error fetching user data:', error);
+        // Redirect to login if token is invalid
+        navigate('/login');
       }
     };
 
     fetchUserData();
-  }, []);
+  }, [navigate]);
 
   return (
     <div className="min-h-screen bg-gray-50">
