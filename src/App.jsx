@@ -2,33 +2,24 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
+import { AuthProvider } from './context/AuthContext';
 import HomePage from './pages/landing/HomePage.jsx';
-import LoginPage from './pages/auth/LoginPage';
-import RegisterPage from './pages/auth/RegisterPage';
-import MenteeHome from './pages/mentee/MenteeHome';
-import ProtectedRoute from './components/common/ProtectedRoute';
-
-// Import landing pages
-
-// Import other pages as needed
+import SimpleLoginPage from './pages/auth/SimpleLoginPage';
+import SimpleRegisterPage from './pages/auth/SimpleRegisterPage';
+import Dashboard from './pages/Dashboard';
 
 function App() {
   return (
-<BrowserRouter>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route 
-          path="/mentee/home" 
-          element={
-            <ProtectedRoute>
-              <MenteeHome />
-            </ProtectedRoute>
-          } 
-        />
-      </Routes>
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<SimpleLoginPage />} />
+          <Route path="/register" element={<SimpleRegisterPage />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
   );
 }
 
