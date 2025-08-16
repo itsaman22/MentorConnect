@@ -16,34 +16,6 @@ const app = express();
 // Connect to MongoDB
 connectDB();
 
-// Security middleware
-app.use(helmet({
-  crossOriginResourcePolicy: { policy: "cross-origin" },
-  contentSecurityPolicy: {
-    directives: {
-      defaultSrc: ["'self'"],
-      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
-      fontSrc: ["'self'", "https://fonts.gstatic.com"],
-      scriptSrc: ["'self'"],
-      imgSrc: ["'self'", "data:", "https:"],
-      connectSrc: ["'self'"]
-    }
-  }
-}));
-
-// Rate limiting
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // Limit each IP to 100 requests per windowMs
-  message: {
-    error: 'Too many requests from this IP, please try again later.'
-  },
-  standardHeaders: true,
-  legacyHeaders: false
-});
-
-app.use(limiter);
-
 // CORS configuration for production and development
 const corsOptions = {
   origin: function (origin, callback) {
@@ -75,10 +47,46 @@ const corsOptions = {
     'Cache-Control',
     'Pragma'
   ],
-  exposedHeaders: ['set-cookie']
+  exposedHeaders: ['set-cookie'],
+  // Ensure legacy browsers and some clients receive a successful status on preflight
+  optionsSuccessStatus: 204,
+  preflightContinue: false
 };
 
+// Apply CORS before other middleware so preflight (OPTIONS) requests are handled early
 app.use(cors(corsOptions));
+// Explicit handler for OPTIONS in case some environments bypass middleware chains
+app.options('*', cors(corsOptions));
+
+// Security middleware
+app.use(helmet({
+  crossOriginResourcePolicy: { policy: "cross-origin" },
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+      fontSrc: ["'self'", "https://fonts.gstatic.com"],
+      scriptSrc: ["'self'"],
+      imgSrc: ["'self'", "data:", "https:"],
+      connectSrc: ["'self'"]
+    }
+  }
+}));
+
+// Rate limiting
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // Limit each IP to 100 requests per windowMs
+  message: {
+    error: 'Too many requests from this IP, please try again later.'
+  },
+  standardHeaders: true,
+  legacyHeaders: false
+});
+
+app.use(limiter);
+
+// (CORS already applied above)
 
 // Body parsing middleware
 app.use(express.json({ limit: '10mb' }));
@@ -128,7 +136,7 @@ app.get('/api/health', (req, res) => {
 app.use('/api/auth', authRoutes);
 
 // Global error handling middleware
-app.use((err, req, res, next) => {
+app.use((err, req, res, _next) => {
   console.error('Global error handler:', err);
   
   // CORS error
