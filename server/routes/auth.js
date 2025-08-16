@@ -5,6 +5,21 @@ import User from '../models/User.js';
 
 const router = Router();
 
+// Add CORS headers for auth routes to handle preflight and allow front-end origin
+router.use((req, res, next) => {
+  // Allow React app origin
+  res.setHeader('Access-Control-Allow-Origin', 'https://mentor-connect-mauve.vercel.app');
+  // Allow common HTTP methods
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  // Allow necessary headers
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  // Handle preflight
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(200);
+  }
+  next();
+});
+
 // Register Route
 router.post('/register', async (req, res) => {
   try {

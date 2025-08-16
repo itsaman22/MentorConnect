@@ -58,7 +58,9 @@ app.get('/api/health', (req, res) => {
 });
 
 // Routes
-app.use('/api/auth', authRoutes);
+app.use('/api/auth', cors(corsOptions), authRoutes);
+// Handle preflight for auth routes
+app.options('/api/auth/*', cors(corsOptions));
 
 // Simple error handler
 // eslint-disable-next-line no-unused-vars
