@@ -114,12 +114,13 @@ app.get('/api/health', (req, res) => {
 app.use('/api/auth', authRoutes);
 
 // Simple error handler
-app.use((err, req, res, _next) => {
+app.use((err, req, res, next) => {
   console.error('Error:', err);
   res.status(err.status || 500).json({
     error: 'Something went wrong',
     message: process.env.NODE_ENV === 'development' ? err.message : 'Internal server error'
   });
+  next(err);
 });
 
 // 404 handler
