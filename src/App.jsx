@@ -2,11 +2,11 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
-import { AuthProvider } from './context/AuthContext';
+import { AuthProvider } from './context/AuthContext.jsx';
 import HomePage from './pages/landing/HomePage.jsx';
-import SimpleLoginPage from './pages/auth/SimpleLoginPage';
-import SimpleRegisterPage from './pages/auth/SimpleRegisterPage';
-import Dashboard from './pages/Dashboard';
+import LoginPage from './pages/auth/LoginPage';
+import RegisterPage from './pages/auth/RegisterPage';
+import MenteeHome from './pages/mentee/MenteeHome';
 
 function App() {
   return (
@@ -14,9 +14,10 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<SimpleLoginPage />} />
-          <Route path="/register" element={<SimpleRegisterPage />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/mentee/home" element={<MenteeHome />} />
+          <Route path="/mentor/home" element={<MenteeHome />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MentorConnect - Database Demo</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .demo-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #3498db;
+        }
+        .status-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: #e8f5e8;
+            border: 1px solid #27ae60;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #27ae60;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        .button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+            transition: background 0.3s;
+        }
+        .button:hover {
+            background: #2980b9;
+        }
+        .data-display {
+            background: #f1f2f6;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            border: 1px solid #ddd;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .credentials {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .api-endpoint {
+            background: #e8f4fd;
+            border: 1px solid #74b9ff;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 5px 0;
+            font-family: 'Courier New', monospace;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .feature-card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .logo h2 {
+            color: #3498db;
+            margin: 0;
+            font-size: 2.5em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <h2>🤝 MentorConnect</h2>
+            <p>Database Integration Demonstration for Academic Review</p>
+        </div>
+
+        <h1>Technical Implementation Overview</h1>
+
+        <div class="demo-section">
+            <h3>🚀 Server Status</h3>
+            <div class="status-box">
+                <span><strong>Backend Server:</strong> <span id="serverStatus">Checking...</span></span>
+                <div class="status-indicator"></div>
+            </div>
+            <div class="status-box">
+                <span><strong>Database:</strong> <span id="dbStatus">Checking...</span></span>
+                <div class="status-indicator"></div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h3>📊 Database Integration</h3>
+            <p><strong>Primary:</strong> MongoDB Atlas (Cloud Database)</p>
+            <p><strong>Fallback:</strong> In-Memory Storage (for reliability)</p>
+            <p><strong>Connection String:</strong> <code>mongodb+srv://cluster0.1lklafz.mongodb.net/mentorconnect</code></p>
+            
+            <button class="button" onclick="checkHealth()">🏥 Check System Health</button>
+            <button class="button" onclick="loadUsers()">👥 View All Users</button>
+            <button class="button" onclick="loadConnections()">🔗 View Connections</button>
+            
+            <div id="dataDisplay" class="data-display" style="display: none;">
+                <pre id="dataContent"></pre>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h3>🔐 Demo Credentials (For Testing)</h3>
+            <div class="credentials">
+                <p><strong>Mentor Account:</strong> mentor@test.com / password123</p>
+                <p><strong>Student Account:</strong> student@test.com / password123</p>
+                <p><strong>Additional Mentor:</strong> alice@test.com / password123</p>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h3>🛠 API Endpoints</h3>
+            <div class="api-endpoint">POST /api/auth/login - User Authentication</div>
+            <div class="api-endpoint">POST /api/auth/register - User Registration</div>
+            <div class="api-endpoint">GET /api/mentors - Retrieve All Mentors</div>
+            <div class="api-endpoint">POST /api/connect - Create Mentor-Student Connection</div>
+            <div class="api-endpoint">GET /api/connections/:userId - Get User Connections</div>
+            <div class="api-endpoint">GET /api/debug/users - Database Contents (Demo Only)</div>
+        </div>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h4>🎯 Key Features</h4>
+                <ul>
+                    <li>User Authentication System</li>
+                    <li>Mentor-Student Matching</li>
+                    <li>Connection Management</li>
+                    <li>Real-time Data Updates</li>
+                    <li>Responsive Design</li>
+                </ul>
+            </div>
+            
+            <div class="feature-card">
+                <h4>💻 Technology Stack</h4>
+                <ul>
+                    <li><strong>Frontend:</strong> React + Vite</li>
+                    <li><strong>Backend:</strong> Node.js + Express</li>
+                    <li><strong>Database:</strong> MongoDB Atlas</li>
+                    <li><strong>Styling:</strong> Tailwind CSS</li>
+                    <li><strong>State:</strong> Context API</li>
+                </ul>
+            </div>
+            
+            <div class="feature-card">
+                <h4>🎓 Academic Highlights</h4>
+                <ul>
+                    <li>Clean Architecture Design</li>
+                    <li>Database Integration</li>
+                    <li>RESTful API Development</li>
+                    <li>Error Handling</li>
+                    <li>Responsive UI/UX</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h3>🌐 Access Links</h3>
+            <p><strong>Main Application:</strong> <a href="http://localhost:5173" target="_blank">http://localhost:5173</a></p>
+            <p><strong>API Server:</strong> <a href="http://localhost:5000/api/health" target="_blank">http://localhost:5000</a></p>
+            <p><strong>Database Debug:</strong> <a href="http://localhost:5000/api/debug/users" target="_blank">View Database Contents</a></p>
+        </div>
+    </div>
+
+    <script>
+        // Check server health on load
+        window.onload = function() {
+            checkHealth();
+        };
+
+        async function checkHealth() {
+            try {
+                const response = await fetch('http://localhost:5000/api/health');
+                const data = await response.json();
+                
+                document.getElementById('serverStatus').textContent = data.status;
+                document.getElementById('dbStatus').textContent = data.database;
+                
+                showData(JSON.stringify(data, null, 2));
+            } catch (error) {
+                document.getElementById('serverStatus').textContent = 'Offline';
+                document.getElementById('dbStatus').textContent = 'Unavailable';
+                showData('Error: ' + error.message);
+            }
+        }
+
+        async function loadUsers() {
+            try {
+                const response = await fetch('http://localhost:5000/api/debug/users');
+                const data = await response.json();
+                showData(JSON.stringify(data, null, 2));
+            } catch (error) {
+                showData('Error loading users: ' + error.message);
+            }
+        }
+
+        async function loadConnections() {
+            try {
+                // Get connections for demo user
+                const response = await fetch('http://localhost:5000/api/connections/1');
+                const data = await response.json();
+                showData(JSON.stringify(data, null, 2));
+            } catch (error) {
+                showData('Error loading connections: ' + error.message);
+            }
+        }
+
+        function showData(content) {
+            const display = document.getElementById('dataDisplay');
+            const contentEl = document.getElementById('dataContent');
+            contentEl.textContent = content;
+            display.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

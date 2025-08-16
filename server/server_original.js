@@ -5,7 +5,7 @@ import session from 'express-session';
 import MongoStore from 'connect-mongo';
 import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
-import process from 'process';
+import * as process from 'process';
 import connectDB from './config/db.js';
 import authRoutes from './routes/auth.js';
 

@@ -1,25 +1,20 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { AuthContext } from './authContext';
+import { loginUser, registerUser } from '../services/api';
 
-const AuthContext = createContext();
-
-export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
-  return context;
-};
-
+// Auth Provider Component
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [token, setToken] = useState(null);
 
   useEffect(() => {
     // Check if user is logged in on app start
-    const savedUser = localStorage.getItem('mentorconnect_user');
-    const savedToken = localStorage.getItem('mentorconnect_token');
+    const savedToken = localStorage.getItem('token');
+    const savedUser = localStorage.getItem('user');
     
-    if (savedUser && savedToken) {
+    if (savedToken && savedUser) {
+      setToken(savedToken);
       setUser(JSON.parse(savedUser));
     }
     setLoading(false);
@@ -27,67 +22,61 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await fetch('http://localhost:5000/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
-
-      const data = await response.json();
-
-      if (data.success) {
-        setUser(data.user);
-        localStorage.setItem('mentorconnect_user', JSON.stringify(data.user));
-        localStorage.setItem('mentorconnect_token', data.token);
-        return { success: true };
-      } else {
-        return { success: false, message: data.message };
-      }
+      setLoading(true);
+      const response = await loginUser({ email, password });
+      
+      // Store token and user data
+      localStorage.setItem('token', response.token);
+      localStorage.setItem('user', JSON.stringify(response.user));
+      
+      setToken(response.token);
+      setUser(response.user);
+      
+      return { success: true, user: response.user };
     } catch (error) {
-      return { success: false, message: 'Network error. Please try again.' };
+      console.error('Login error:', error);
+      return { success: false, message: error.message || 'Login failed' };
+    } finally {
+      setLoading(false);
     }
   };
 
-  const register = async (email, password, name, role) => {
+  const register = async (userData) => {
     try {
-      const response = await fetch('http://localhost:5000/api/auth/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password, name, role }),
-      });
-
-      const data = await response.json();
-
-      if (data.success) {
-        setUser(data.user);
-        localStorage.setItem('mentorconnect_user', JSON.stringify(data.user));
-        localStorage.setItem('mentorconnect_token', data.token);
-        return { success: true };
-      } else {
-        return { success: false, message: data.message };
-      }
+      setLoading(true);
+      const response = await registerUser(userData);
+      
+      // Store token and user data
+      localStorage.setItem('token', response.token);
+      localStorage.setItem('user', JSON.stringify(response.user));
+      
+      setToken(response.token);
+      setUser(response.user);
+      
+      return { success: true, user: response.user };
     } catch (error) {
-      return { success: false, message: 'Network error. Please try again.' };
+      console.error('Registration error:', error);
+      return { success: false, message: error.message || 'Registration failed' };
+    } finally {
+      setLoading(false);
     }
   };
 
   const logout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    setToken(null);
     setUser(null);
-    localStorage.removeItem('mentorconnect_user');
-    localStorage.removeItem('mentorconnect_token');
   };
 
   const value = {
     user,
+    token,
     login,
     register,
     logout,
     loading,
-    isAuthenticated: !!user,
+    isAuthenticated: !!user && !!token,
   };
 
   return (
