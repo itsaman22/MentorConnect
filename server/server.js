@@ -23,21 +23,10 @@ const connectDB = async () => {
 // Connect to database
 connectDB();
 
-// Simple CORS - allow all origins for development, specific origins for production
-// const corsOptions = {
-//   origin: process.env.NODE_ENV === 'production' 
-//     ? ['https://mentor-connect-mauve.vercel.app', 'https://core-project-chi.vercel.app']
-//     : true, // Allow all origins in development
-//   credentials: true,
-//   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-//   allowedHeaders: ['Content-Type', 'Authorization', 'Origin', 'Accept']
-// };
-
-// app.use(cors(corsOptions));
+// Enable CORS for all origins
 app.use(cors());
-
-// Handle preflight requests explicitly
-// app.options('*', cors(corsOptions));
+// Handle preflight for all routes
+app.options('*', cors());
 
 // Body parsing
 app.use(express.json({ limit: '1mb' }));
@@ -59,11 +48,9 @@ app.get('/api/health', (req, res) => {
 });
 
 // Routes
-app.use('/api/auth', cors(), authRoutes);
-// app.use('/api/auth', cors(corsOptions), authRoutes);
+app.use('/api/auth', authRoutes);
 // Handle preflight for auth routes
 app.options('/api/auth/*', cors());
-// app.options('/api/auth/*', cors(corsOptions));
 
 // Simple error handler
 // eslint-disable-next-line no-unused-vars
