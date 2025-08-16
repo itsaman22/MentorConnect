@@ -136,7 +136,7 @@ app.get('/api/health', (req, res) => {
 app.use('/api/auth', authRoutes);
 
 // Global error handling middleware
-app.use((err, req, res, _next) => {
+app.use((err, req, res) => {
   console.error('Global error handler:', err);
   
   // CORS error
