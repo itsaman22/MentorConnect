@@ -23,10 +23,27 @@ const connectDB = async () => {
 // Connect to database
 connectDB();
 
-// Enable CORS for all origins
-app.use(cors());
-// Handle preflight for all routes
-app.options('*', cors());
+// --- Global, permissive CORS (handles preflight early) ---
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+  // If the browser requests specific headers, reflect them; otherwise allow common ones
+  const reqHeaders = req.headers['access-control-request-headers'];
+  res.setHeader('Access-Control-Allow-Headers', reqHeaders || 'Content-Type, Authorization');
+  res.setHeader('Access-Control-Max-Age', '86400'); // cache preflight for 24h
+  if (req.method === 'OPTIONS') {
+    return res.status(204).end();
+  }
+  next();
+});
+
+// Also mount cors() as a fallback (harmless with headers already set)
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: false
+}));
 
 // Body parsing
 app.use(express.json({ limit: '1mb' }));

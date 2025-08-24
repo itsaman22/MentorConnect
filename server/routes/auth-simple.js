@@ -5,17 +5,8 @@ import User from '../models/User.js';
 
 const router = Router();
 
-// Add CORS headers for auth routes to allow cross-origin requests
-// Allow all origins for CORS
-router.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-  if (req.method === 'OPTIONS') {
-    return res.sendStatus(200);
-  }
-  next();
-});
+// Lightweight OPTIONS handler (global CORS is set in app)
+router.options('*', (req, res) => res.sendStatus(204));
 
 // Register Route
 router.post('/register', async (req, res) => {
