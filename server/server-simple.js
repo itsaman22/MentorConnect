@@ -23,51 +23,9 @@ const connectDB = async () => {
 // Connect to database
 connectDB();
 
-// CORS configuration for production deployment
-const corsOptions = {
-  origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
-    
-    const allowedOrigins = [
-      'https://mentor-connect-mauve.vercel.app',
-      'https://core-project-chi.vercel.app',
-      'http://localhost:5173',
-      'http://localhost:3000',
-      'http://127.0.0.1:5173'
-    ];
-    
-    if (allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      console.log('Blocked origin:', origin);
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: [
-    'Content-Type', 
-    'Authorization', 
-    'Origin', 
-    'Accept',
-    'X-Requested-With',
-    'Access-Control-Request-Method',
-    'Access-Control-Request-Headers'
-  ],
-  exposedHeaders: ['Access-Control-Allow-Origin'],
-  optionsSuccessStatus: 200 // Some legacy browsers choke on 204
-};
-
-app.use(cors(corsOptions));
-
-// Handle preflight requests explicitly
-app.options('*', cors(corsOptions));
-
-// Additional CORS headers middleware for extra safety
-app.use((req, res, next) => {
-  const origin = req.headers.origin;
-  const allowedOrigins = [
+// Enable CORS for all origins (simple and accessible)
+app.use(cors());
+app.options('*', cors());
     'https://mentor-connect-mauve.vercel.app',
     'https://core-project-chi.vercel.app',
     'http://localhost:5173',
