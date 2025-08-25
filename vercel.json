@@ -13,8 +13,7 @@
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "/index.html",
-      "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+      "destination": "/index.html"
     }
   ],
   "headers": [
