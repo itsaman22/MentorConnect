@@ -14,12 +14,9 @@
     {
       "source": "/(.*)",
       "destination": "/index.html",
-      "headers": [
-        {
-          "key": "Access-Control-Allow-Origin",
-          "value": "*"
-        }
-      ]
-    }
+      "headers": {
+        "Access-Control-Allow-Origin":  "*",
+        "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE"
+      }
   ]
 }
