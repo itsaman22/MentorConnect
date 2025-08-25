@@ -1,10 +1,11 @@
-// Get API base URL from environment or fallback to localhost
+// Get API base URL from environment or fallback to production server
 const getApiBaseUrl = () => {
   const envApiUrl = import.meta.env.VITE_API_URL;
   if (envApiUrl && envApiUrl !== 'undefined') {
     return `${envApiUrl}/api`;
   }
-  return 'http://localhost:5000/api';
+  // Always use production server as fallback, never localhost in production
+  return 'https://mentor-connect-server.vercel.app/api';
 };
 
 const API_BASE_URL = getApiBaseUrl();
