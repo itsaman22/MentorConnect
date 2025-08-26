@@ -9,6 +9,7 @@ const MenteeHome = () => {
   const handleLogout = () => {
     // Clear the token from localStorage
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
     // Redirect to login page
     navigate('/');
   };
@@ -22,8 +23,9 @@ const MenteeHome = () => {
           return;
         }
 
-        const data = await apiService.getMe(token);
-        setUserData(data);
+        const response = await apiService.getMe(token);
+        // The API returns { success: true, user: {...} }
+        setUserData(response.user);
       } catch (error) {
         console.error('Error fetching user data:', error);
         // Redirect to login if token is invalid

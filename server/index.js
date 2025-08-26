@@ -20,42 +20,54 @@ const connectDB = async () => {
   }
 };
 
-// Connect to database
 connectDB();
 
-// --- Global, permissive CORS (handles preflight early) ---
+// Enhanced CORS configuration for production
+app.use(cors({
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    // Allow all origins in production for this project
+    return callback(null, true);
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'HEAD', 'PATCH'],
+  allowedHeaders: [
+    'Origin',
+    'X-Requested-With',
+    'Content-Type',
+    'Accept',
+    'Authorization',
+    'Cache-Control',
+    'X-Requested-With'
+  ],
+  credentials: false,
+  preflightContinue: false,
+  optionsSuccessStatus: 204
+}));
+
+// Additional CORS headers for belt-and-suspenders approach
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
-  // If the browser requests specific headers, reflect them; otherwise allow common ones
-  const reqHeaders = req.headers['access-control-request-headers'];
-  res.setHeader('Access-Control-Allow-Headers', reqHeaders || 'Content-Type, Authorization');
-  res.setHeader('Access-Control-Max-Age', '86400'); // cache preflight for 24h
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS,HEAD,PATCH');
+  res.header('Access-Control-Allow-Headers', 'Origin,X-Requested-With,Content-Type,Accept,Authorization,Cache-Control');
+  res.header('Access-Control-Max-Age', '86400');
+  
+  // Handle preflight requests
   if (req.method === 'OPTIONS') {
     return res.status(204).end();
   }
   next();
 });
 
-// Also mount cors() as a fallback (harmless with headers already set)
-app.use(cors({
-  origin: '*',
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: false
-}));
-
-// Body parsing
 app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: true }));
 
-// Simple request logging
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.path} - ${new Date().toISOString()}`);
   next();
 });
 
-// Health check
 app.get('/api/health', (req, res) => {
   res.json({ 
     status: 'OK', 
@@ -64,22 +76,29 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Routes
+// Explicit OPTIONS handler for auth routes
+app.options('/api/auth/*', (req, res) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS,HEAD,PATCH');
+  res.header('Access-Control-Allow-Headers', 'Origin,X-Requested-With,Content-Type,Accept,Authorization,Cache-Control');
+  res.status(204).end();
+});
+
 app.use('/api/auth', authRoutes);
-// Handle preflight for auth routes
 app.options('/api/auth/*', cors());
 
-// Simple error handler
-// eslint-disable-next-line no-unused-vars
-app.use((err, req, res, _next) => {
+
+app.use((err, req, res, next) => {
   console.error('Error:', err);
+  if (res.headersSent) {
+    return next(err);
+  }
   res.status(err.status || 500).json({
     error: 'Something went wrong',
     message: process.env.NODE_ENV === 'development' ? err.message : 'Internal server error'
   });
 });
 
-// 404 handler
 app.use('*', (req, res) => {
   res.status(404).json({
     error: 'Not found',

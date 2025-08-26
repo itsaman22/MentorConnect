@@ -1,0 +1,21 @@
+{
+  "name": "mentorconnect-simple-server",
+  "version": "1.0.0",
+  "description": "Simple backend for MentorConnect",
+  "main": "simple-server.js",
+  "scripts": {
+    "start": "node simple-server.js",
+    "dev": "nodemon simple-server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "cors": "^2.8.5",
+    "mongoose": "^8.17.1",
+    "bcryptjs": "^3.0.2",
+    "jsonwebtoken": "^9.0.2",
+    "dotenv": "^17.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
