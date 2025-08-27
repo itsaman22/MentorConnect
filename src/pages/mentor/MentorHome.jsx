@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authAPI, auth } from '../../services/simple-api';
-import MentorNavbar from './MentorNavbar';
-import MentorOnboarding from './MentorOnboarding';
+import MentorNavbar from '../../components/mentor/MentorNavbar';
+import MentorOnboarding from '../../components/mentor/MentorOnboarding';
 
 const MentorHome = () => {
   const navigate = useNavigate();

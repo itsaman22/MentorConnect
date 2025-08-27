@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { AuthContext } from './authContext';
-import { loginUser, registerUser } from '../services/api';
+import { authAPI } from '../services/simple-api';
 
 // Auth Provider Component
 export const AuthProvider = ({ children }) => {
@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     try {
       setLoading(true);
-      const response = await loginUser({ email, password });
+      const response = await authAPI.login({ email, password });
       
       // Store token and user data
       localStorage.setItem('token', response.token);
@@ -44,7 +44,7 @@ export const AuthProvider = ({ children }) => {
   const register = async (userData) => {
     try {
       setLoading(true);
-      const response = await registerUser(userData);
+      const response = await authAPI.register(userData);
       
       // Store token and user data
       localStorage.setItem('token', response.token);
