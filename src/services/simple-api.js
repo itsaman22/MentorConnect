@@ -1,5 +1,7 @@
 // Simple API Service for MentorConnect
-const API_URL = 'http://localhost:5000/api'; // Change this for production
+const API_URL = import.meta.env.VITE_API_URL 
+  ? `${import.meta.env.VITE_API_URL}/api`
+  : 'http://localhost:5000/api';
 
 // Simple fetch wrapper with error handling
 const apiRequest = async (url, options = {}) => {

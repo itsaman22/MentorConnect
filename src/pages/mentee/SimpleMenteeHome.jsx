@@ -12,7 +12,7 @@ const SimpleMenteeHome = () => {
   const [ongoingSessions] = useState([
     {
       id: 1,
-      mentor: "John Doe",
+      mentor: "Ramesh Singh",
       topic: "React Development",
       timeLeft: "2 days left",
       status: "In Progress",

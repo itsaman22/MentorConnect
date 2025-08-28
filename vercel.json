@@ -3,11 +3,11 @@
   "outputDirectory": "dist",
   "framework": "vite",
   "env": {
-    "VITE_API_URL": "https://mentor-connect-server.vercel.app"
+    "VITE_API_URL": "https://mentor-connect-mauve.vercel.app"
   },
   "build": {
     "env": {
-      "VITE_API_URL": "https://mentor-connect-server.vercel.app"
+      "VITE_API_URL": "https://mentor-connect-mauve.vercel.app"
     }
   },
   "rewrites": [
