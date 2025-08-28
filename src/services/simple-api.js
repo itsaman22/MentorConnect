@@ -6,6 +6,8 @@ const API_URL = import.meta.env.VITE_API_URL
 // Simple fetch wrapper with error handling
 const apiRequest = async (url, options = {}) => {
   try {
+    console.log(`Making request to: ${API_URL}${url}`); // Debug log
+    
     const response = await fetch(`${API_URL}${url}`, {
       headers: {
         'Content-Type': 'application/json',
@@ -14,20 +16,43 @@ const apiRequest = async (url, options = {}) => {
       ...options
     });
 
-    const data = await response.json();
+    console.log(`Response status: ${response.status}`); // Debug log
+    
+    // Check if response has content before parsing JSON
+    const text = await response.text();
+    console.log(`Response text: ${text}`); // Debug log
+    
+    let data;
+    try {
+      data = text ? JSON.parse(text) : {};
+    } catch (jsonError) {
+      console.error('JSON parse error:', jsonError);
+      throw new Error(`Invalid JSON response: ${text}`);
+    }
 
     if (!response.ok) {
-      throw new Error(data.message || 'Request failed');
+      throw new Error(data.message || `HTTP ${response.status}: ${response.statusText}`);
     }
 
     return data;
   } catch (error) {
+    console.error('API Request Error:', error);
     throw new Error(error.message || 'Network error');
   }
 };
 
 // Authentication functions
 export const authAPI = {
+  // Test backend connection
+  testConnection: async () => {
+    try {
+      return await apiRequest('/health');
+    } catch (error) {
+      console.error('Backend connection test failed:', error);
+      throw error;
+    }
+  },
+
   // Register new user
   register: async (userData) => {
     return await apiRequest('/auth/register', {
