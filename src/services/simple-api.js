@@ -1,9 +1,5 @@
 // Simple API Service for MentorConnect
-const API_URL = import.meta.env.VITE_API_URL 
-  ? `${import.meta.env.VITE_API_URL}/api`
-  : import.meta.env.PROD 
-    ? 'https://mentor-connect-bqvch088m-aman-singhs-projects-81158277.vercel.app/api'
-    : 'http://localhost:5000/api';
+const API_URL = 'http://localhost:5000/api'; // Change this for production
 
 // Simple fetch wrapper with error handling
 const apiRequest = async (url, options = {}) => {
