@@ -59,6 +59,8 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.path} - ${new Date().toISOString()}`);
+  console.log('Request headers:', req.headers);
+  console.log('Request body:', req.body);
   next();
 });
 
@@ -66,8 +68,36 @@ app.get('/api/health', (req, res) => {
   res.json({ 
     status: 'OK', 
     message: 'Server is running',
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
+    availableRoutes: [
+      'GET /api/health',
+      'POST /api/auth/register', 
+      'POST /api/auth/login'
+    ]
   });
+});
+
+// Debug route to list all routes
+app.get('/api/debug/routes', (req, res) => {
+  const routes = [];
+  app._router.stack.forEach(middleware => {
+    if (middleware.route) {
+      routes.push({
+        path: middleware.route.path,
+        methods: Object.keys(middleware.route.methods)
+      });
+    } else if (middleware.name === 'router') {
+      middleware.handle.stack.forEach(handler => {
+        if (handler.route) {
+          routes.push({
+            path: '/api/auth' + handler.route.path,
+            methods: Object.keys(handler.route.methods)
+          });
+        }
+      });
+    }
+  });
+  res.json({ routes });
 });
 
 // Explicit OPTIONS handler for auth routes

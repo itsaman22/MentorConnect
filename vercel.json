@@ -3,11 +3,11 @@
   "outputDirectory": "dist",
   "framework": "vite",
   "env": {
-    "VITE_API_URL": "https://mentor-connect-hc9jd8tj2-aman-singhs-projects-81158277.vercel.app"
+    "VITE_API_URL": "https://mentor-connect-nxb7c2dcx-aman-singhs-projects-81158277.vercel.app"
   },
   "build": {
     "env": {
-      "VITE_API_URL": "https://mentor-connect-hc9jd8tj2-aman-singhs-projects-81158277.vercel.app"
+      "VITE_API_URL": "https://mentor-connect-nxb7c2dcx-aman-singhs-projects-81158277.vercel.app"
     }
   },
   "rewrites": [
