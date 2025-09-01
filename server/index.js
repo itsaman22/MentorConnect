@@ -24,26 +24,19 @@ connectDB();
 
 // Enhanced CORS configuration for production
 app.use(cors({
-  origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
-    
-    // Allow all origins in production for this project
-    return callback(null, true);
-  },
+  origin: true, // Allow all origins
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'HEAD', 'PATCH'],
   allowedHeaders: [
     'Origin',
-    'X-Requested-With',
+    'X-Requested-With', 
     'Content-Type',
     'Accept',
     'Authorization',
-    'Cache-Control',
-    'X-Requested-With'
+    'Cache-Control'
   ],
   credentials: false,
   preflightContinue: false,
-  optionsSuccessStatus: 204
+  optionsSuccessStatus: 200
 }));
 
 // Additional CORS headers for belt-and-suspenders approach
@@ -53,9 +46,10 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Headers', 'Origin,X-Requested-With,Content-Type,Accept,Authorization,Cache-Control');
   res.header('Access-Control-Max-Age', '86400');
   
-  // Handle preflight requests
+  // Handle preflight requests explicitly
   if (req.method === 'OPTIONS') {
-    return res.status(204).end();
+    console.log('Handling OPTIONS preflight request');
+    return res.status(200).end();
   }
   next();
 });
