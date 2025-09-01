@@ -1,7 +1,7 @@
 // Simple API Service for MentorConnect
 const API_URL = import.meta.env.VITE_API_URL 
   ? `${import.meta.env.VITE_API_URL}/api`
-  : 'http://localhost:5000/api';
+  : 'https://mentorconnect-lb7y.onrender.com/api';
 
 // Simple fetch wrapper with error handling
 const apiRequest = async (url, options = {}) => {
