@@ -39,16 +39,16 @@ app.use(cors({
   optionsSuccessStatus: 200
 }));
 
-// Additional CORS headers for belt-and-suspenders approach
+// Global middleware to ensure CORS headers are always present
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS,HEAD,PATCH');
   res.header('Access-Control-Allow-Headers', 'Origin,X-Requested-With,Content-Type,Accept,Authorization,Cache-Control');
   res.header('Access-Control-Max-Age', '86400');
   
-  // Handle preflight requests explicitly
+  // Handle ALL OPTIONS requests globally
   if (req.method === 'OPTIONS') {
-    console.log('Handling OPTIONS preflight request');
+    console.log('Global OPTIONS handler triggered for:', req.path);
     return res.status(200).end();
   }
   next();
