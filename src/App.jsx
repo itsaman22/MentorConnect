@@ -7,7 +7,7 @@ import HomePage from './pages/landing/HomePage.jsx';
 import LoginPage from './pages/auth/LoginPage';
 import RegisterPage from './pages/auth/RegisterPage';
 import SimpleMenteeHome from './pages/mentee/SimpleMenteeHome';
-import MentorHome from './pages/mentor/MentorHome';
+import MentorHomeNew from './pages/mentor/MentorHomeNew';
 
 function App() {
   return (
@@ -18,7 +18,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/mentee-home" element={<SimpleMenteeHome />} />
-          <Route path="/mentor-home" element={<MentorHome />} />
+          <Route path="/mentor-home" element={<MentorHomeNew />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
