@@ -6,9 +6,8 @@ import { AuthProvider } from './context/AuthContext.jsx';
 import HomePage from './pages/landing/HomePage.jsx';
 import LoginPage from './pages/auth/LoginPage';
 import RegisterPage from './pages/auth/RegisterPage';
-// import SimpleMenteeHome from './pages/mentee/SimpleMenteeHome';
+import SimpleMenteeHome from './pages/mentee/SimpleMenteeHome';
 import MentorHome from './pages/mentor/MentorHome';
-import SimpleMenteeHomeRefactored from './pages/mentee/SimpleMenteeHomeRefactored.jsx';
 
 function App() {
   return (
@@ -18,7 +17,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/mentee-home" element={<SimpleMenteeHomeRefactored />} />
+          <Route path="/mentee-home" element={<SimpleMenteeHome />} />
           <Route path="/mentor-home" element={<MentorHome />} />
         </Routes>
       </BrowserRouter>
