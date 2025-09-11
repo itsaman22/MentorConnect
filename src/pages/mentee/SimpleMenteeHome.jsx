@@ -13,6 +13,7 @@ import GoalsSection from '../../components/mentee/GoalsSection';
 import ConversationsSection from '../../components/mentee/ConversationsSection';
 import QuickActionsSection from '../../components/mentee/QuickActionsSection';
 import SupportSection from '../../components/mentee/SupportSection';
+import AlumniSection from '../../components/mentee/AlumniSection';
 
 const SimpleMenteeHomeRefactored = () => {
   const [user, setUser] = useState(null);
@@ -206,6 +207,10 @@ const SimpleMenteeHomeRefactored = () => {
 
               {/* SMART Goals Progress */}
               <GoalsSection handleSectionClick={handleSectionClick} />
+              {/* Alumni Section - only show when activeSection is 'alumni' */}
+              {activeSection === 'alumni' && (
+                <AlumniSection school={user?.school} college={user?.college} />
+              )}
             </div>
 
             {/* Right Column - Conversations & Quick Actions */}

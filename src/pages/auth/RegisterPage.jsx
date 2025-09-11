@@ -7,13 +7,15 @@ import { Eye, EyeOff, Mail, Lock, User, AlertCircle, Check } from 'lucide-react'
 const RegisterPage = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    userType: 'mentee', // 'mentee' or 'mentor'
-    agreeToTerms: false
+  firstName: '',
+  lastName: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
+  userType: 'mentee', // 'mentee' or 'mentor'
+  school: '',
+  college: '',
+  agreeToTerms: false
   });
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -37,6 +39,12 @@ const RegisterPage = () => {
     
     if (!formData.firstName.trim()) {
       newErrors.firstName = 'First name is required';
+    }
+    if (!formData.school.trim()) {
+      newErrors.school = 'School name is required';
+    }
+    if (!formData.college.trim()) {
+      newErrors.college = 'College name is required';
     }
     
     if (!formData.lastName.trim()) {
@@ -109,7 +117,9 @@ const RegisterPage = () => {
           lastName: formData.lastName,
           email: formData.email,
           password: formData.password,
-          userType: formData.userType
+          userType: formData.userType,
+          school: formData.school,
+          college: formData.college
         }),
       });
 
@@ -192,6 +202,37 @@ const RegisterPage = () => {
           </div>
 
           <div className="space-y-6">
+            {/* School Field */}
+            <div>
+              <label htmlFor="school" className="block text-sm font-medium text-gray-700 mb-2">
+                School Name
+              </label>
+              <input
+                type="text"
+                id="school"
+                name="school"
+                value={formData.school}
+                onChange={handleInputChange}
+                className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors border-gray-300"
+                placeholder="Your School Name"
+              />
+            </div>
+
+            {/* College Field */}
+            <div>
+              <label htmlFor="college" className="block text-sm font-medium text-gray-700 mb-2">
+                College Name
+              </label>
+              <input
+                type="text"
+                id="college"
+                name="college"
+                value={formData.college}
+                onChange={handleInputChange}
+                className="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors border-gray-300"
+                placeholder="Your College Name"
+              />
+            </div>
             {/* Name Fields */}
             <div className="grid grid-cols-2 gap-4">
               <div>

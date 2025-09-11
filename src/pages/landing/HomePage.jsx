@@ -10,11 +10,11 @@ import FAQ from './Faq';
 import ConnectFlow from './ConnectFlow';
 const HomePage = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [stats] = useState({
-    mentors: "1,000+",
-    students: "460+",
-    courses: "50+"
-  });
+    const [stats] = useState({
+      mentors: "1,000+",
+      mentees: "460+",
+      guidanceAreas: "50+"
+    });
 
   return (
     <div className="overflow-hidden">
@@ -97,8 +97,8 @@ const HomePage = () => {
             ))}
             </div>
             <div>
-            <h4 className="text-2xl font-bold text-gray-900">{stats.students}</h4>
-            <p className="text-sm text-gray-600 uppercase">STUDENTS</p>
+            <h4 className="text-2xl font-bold text-gray-900">{stats.mentees}</h4>
+            <p className="text-sm text-gray-600 uppercase">MENTEES</p>
             </div>
           </div>
 
@@ -109,7 +109,7 @@ const HomePage = () => {
             </div>
             <div>
               <h4 className="text-2xl font-bold text-gray-900">{stats.mentors}</h4>
-              <p className="text-sm text-gray-600 uppercase">MENTORS</p>
+              <p className="text-sm text-gray-600 uppercase">MENTORS / ALUMNI</p>
             </div>
             </div>
           </div>
@@ -130,11 +130,11 @@ const HomePage = () => {
     <div className="absolute top-1/4 -left-22 bg-white p-4 rounded-xl shadow-lg">
       <div className="flex items-center gap-3">
         {/* <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center">
-          <i className="fas fa-brain text-blue-600"></i>
+          <i className="fas fa-user-tie text-blue-600"></i>
         </div> */}
         {/* <div>
-          <h4 className="text-xl font-bold text-gray-900">{stats.courses}</h4>
-          <p className="text-sm text-gray-600">Expert Classes</p>
+          <h4 className="text-xl font-bold text-gray-900">{stats.guidanceAreas}</h4>
+          <p className="text-sm text-gray-600">Career Guidance Areas</p>
         </div> */}
       </div>
     </div>
@@ -153,27 +153,27 @@ const HomePage = () => {
    { /* Left side - Text Content */}
       <div className="md:w-1/2 space-y-6">
         <h2 className="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
-        Mentorship
-        <span className="text-blue-600"> Matters</span>
+  Mentorship
+  <span className="text-blue-600"> & Career Guidance Matter</span>
         </h2>
         
         <div className="space-y-4">
         <p className="text-xl text-gray-700 leading-relaxed">
-          Discover the impact of mentorship on personal and professional growth through our expert-led platform.
+          Discover the impact of mentorship, alumni connections, and career guidance on your personal and professional growth.
         </p>
         
         <div className="space-y-3">
           <div className="flex items-center space-x-2">
           <i className="fas fa-check-circle text-blue-600"></i>
-          <p className="text-gray-600">Personalized guidance from industry experts</p>
+          <p className="text-gray-600">Personalized guidance from mentors and alumni</p>
           </div>
           <div className="flex items-center space-x-2">
           <i className="fas fa-check-circle text-blue-600"></i>
-          <p className="text-gray-600">Structured career development programs</p>
+          <p className="text-gray-600">Career growth and skill mastery sessions</p>
           </div>
           <div className="flex items-center space-x-2">
           <i className="fas fa-check-circle text-blue-600"></i>
-          <p className="text-gray-600">Build valuable professional connections</p>
+          <p className="text-gray-600">Connect with your college/school alumni network</p>
           </div>
         </div>
 

@@ -96,6 +96,15 @@ const MenteeSidebar = ({
             <i className="fas fa-video w-5"></i>
             {!sidebarCollapsed && <span>Info Session</span>}
           </button>
+          {/* Alumni Section Button */}
+          <button
+            onClick={() => handleSectionClick('alumni')}
+            className={`w-full flex items-center ${sidebarCollapsed ? 'justify-center' : 'space-x-3'} px-3 py-2 rounded-lg text-left text-gray-700 hover:bg-gray-50 transition-colors mt-1`}
+            title={sidebarCollapsed ? 'Alumni' : ''}
+          >
+            <i className="fas fa-user-graduate w-5"></i>
+            {!sidebarCollapsed && <span>Alumni</span>}
+          </button>
         </div>
 
         <div className="px-6 py-1 mt-4">

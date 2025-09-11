@@ -8,6 +8,7 @@ import LoginPage from './pages/auth/LoginPage';
 import RegisterPage from './pages/auth/RegisterPage';
 import SimpleMenteeHome from './pages/mentee/SimpleMenteeHome';
 import MentorHomeNew from './pages/mentor/MentorHomeNew';
+import ExplorePage from './pages/explore/ExplorePage';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/explore" element={<ExplorePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/mentee-home" element={<SimpleMenteeHome />} />
